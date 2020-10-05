@@ -174,17 +174,19 @@ function library:Window(name)
 
         pastSliders[winCount] = false
     end
-    function functions:Label(text, color, israinbow)
-        local color = color or Color3.fromRGB(220, 221, 225)
-        if israinbow == nil then israinbow = false end
-        if israinbow then
+    function functions:Label(text, args)
+        local color
+        if typeof(args) == "boolean" then
             spawn(function()
                 while wait() do
                     local Hue = tick() % 5 / 5
                     color = Color3.fromHSV(Hue, 1, 1)
                 end
             end)
+        elseif typeof(args) == "Color3" then
+            color = args or Color3.fromRGB(255, 255, 255)
         end
+        
         sizes[winCount] = sizes[winCount] + 32
         Window.Size = UDim2.new(0, 207, 0, sizes[winCount] + 10)
 
